@@ -30,14 +30,14 @@ public class LendCalculatorTest extends BasePage{
 		LendCalculator loanCalculator = new LendCalculator();
 		loanCalculator.calculateLoan(montlyIncome, termInYears + " Años");
 		List<Integer> loanValues =  loanCalculator.calculateLoanValuesBasedOn10Years(montlyIncome);
-		assertEquals(loanCalculator.montlyIncomeResult.getText(), dataCalculationMethods.formatPriceValue(loanValues.get(0)));
-		assertEquals(loanCalculator.bankMaxLoanResult.getText(), dataCalculationMethods.formatPriceValue(loanValues.get(1)));
-		assertEquals(loanCalculator.minimumInitialResult.getText(), dataCalculationMethods.formatPriceValue(loanValues.get(2)));
-		assertEquals(loanCalculator.maxBuyingPriceWebElementResult.getText(), dataCalculationMethods.formatPriceValue(loanValues.get(3)));
+		assertEquals(loanCalculator.montlyIncomeResult.getText(), dataCalculationMethods.formatPriceValue(loanValues.get(0)), "montlyIncomeResult is not presenting the expected value");
+		assertEquals(loanCalculator.bankMaxLoanResult.getText(), dataCalculationMethods.formatPriceValue(loanValues.get(1)), "bankMaxLoanResult is not presenting the expected value");
+		assertEquals(loanCalculator.minimumInitialResult.getText(), dataCalculationMethods.formatPriceValue(loanValues.get(2)), "minimumInitialResult is not presenting the expected value");
+		assertEquals(loanCalculator.maxBuyingPriceWebElementResult.getText(), dataCalculationMethods.formatPriceValue(loanValues.get(3)), "maxBuyingPriceWebElementResult is not presenting the expected value");
 		
-		assertEquals(loanCalculator.AvertageRate_CreditValueResult.getText(), dataCalculationMethods.formatPriceValue(loanValues.get(1)));
-		assertEquals(loanCalculator.AvertageRate_MontlyPaymentResult.getText(), dataCalculationMethods.formatPriceValue(loanValues.get(4)));
-		assertEquals(loanCalculator.AvertageRate_EAResult.getText(), AverageEA);
+		assertEquals(loanCalculator.AvertageRate_CreditValueResult.getText(), dataCalculationMethods.formatPriceValue(loanValues.get(1)), "AvertageRate_CreditValueResult is not presenting the expected value");
+		assertEquals(loanCalculator.AvertageRate_MontlyPaymentResult.getText(), dataCalculationMethods.formatPriceValue(loanValues.get(4)), "AvertageRate_MontlyPaymentResult is not presenting the expected value");
+		assertEquals(loanCalculator.AvertageRate_EAResult.getText(), AverageEA, "AvertageRate_EAResult is not presenting the expected value");
 	}
 	
 	@Test(testName= "check if montly income is required", description =  "Check if the calculate button is disable when the user only set text in term in years field", priority = 2)
@@ -45,7 +45,7 @@ public class LendCalculatorTest extends BasePage{
 		LendCalculator loanCalculator = new LendCalculator();
 		loanCalculator.calculateLoan(0, termInYears + " Años");
 		assertTrue(loanCalculator.calculateCredit.getAttribute("disabled").equals("true"), "Montly income is not required");
-		assertEquals(loanCalculator.MontlyIncomeError.getText(), "Los ingresos deben ser mayores o iguales a $737,717.");
+		assertEquals(loanCalculator.MontlyIncomeError.getText(), "Los ingresos deben ser mayores o iguales a $737,717.", "MontlyIncomeError is not presenting the expected value");
 	}
 	
 	@Test(testName= "check if The user can process credit", description =  "Check if the user can click on process credit and the pop up is located", priority = 3)
@@ -53,6 +53,6 @@ public class LendCalculatorTest extends BasePage{
 		LendCalculator loanCalculator = new LendCalculator();
 		loanCalculator.calculateLoan(montlyIncome, termInYears + " Años");
 		loanCalculator.processCredit.click();
-		assertTrue(loanCalculator.requestCreditPopup.size()>0);
+		assertTrue(loanCalculator.requestCreditPopup.size()>0, "popup is not present");
 	}
 }
